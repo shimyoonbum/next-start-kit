@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 export function Footer() {
   return (
     <footer className="border-t border-border/40">
-      <div className="container max-w-screen-2xl px-4 py-8">
+      <div className="container mx-auto max-w-screen-2xl px-4 py-8">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div className="flex flex-col gap-2 max-w-xs">
             <Link href="/" className="flex items-center gap-2">
