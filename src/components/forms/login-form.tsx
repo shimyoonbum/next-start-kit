@@ -22,7 +22,6 @@ export function LoginForm() {
   });
 
   function onSubmit(data: LoginInput) {
-    console.log(data);
     toast.success("로그인 성공!", { description: `${data.email}로 로그인했습니다.` });
     form.reset();
   }

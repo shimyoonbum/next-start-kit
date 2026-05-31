@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import Link from "next/link";
 import { useBreadcrumb } from "@/hooks/use-breadcrumb";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -22,19 +23,19 @@ export function DashboardHeader() {
       <Separator orientation="vertical" className="mr-2 h-4" />
       <Breadcrumb>
         <BreadcrumbList>
-          {crumbs.map((crumb, i) => (
-            <BreadcrumbItem key={crumb.href}>
-              {crumb.isLast ? (
-                <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
-              ) : (
-                <>
+          {crumbs.map((crumb) => (
+            <Fragment key={crumb.href}>
+              <BreadcrumbItem>
+                {crumb.isLast ? (
+                  <BreadcrumbPage>{crumb.label}</BreadcrumbPage>
+                ) : (
                   <BreadcrumbLink asChild>
                     <Link href={crumb.href}>{crumb.label}</Link>
                   </BreadcrumbLink>
-                  {i < crumbs.length - 1 && <BreadcrumbSeparator />}
-                </>
-              )}
-            </BreadcrumbItem>
+                )}
+              </BreadcrumbItem>
+              {!crumb.isLast && <BreadcrumbSeparator />}
+            </Fragment>
           ))}
         </BreadcrumbList>
       </Breadcrumb>

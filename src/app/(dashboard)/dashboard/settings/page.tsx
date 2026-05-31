@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -41,9 +42,33 @@ export default function SettingsPage() {
     },
   });
 
+  const currentPasswordRef = useRef<HTMLInputElement>(null);
+  const newPasswordRef = useRef<HTMLInputElement>(null);
+  const confirmPasswordRef = useRef<HTMLInputElement>(null);
+
   function onSubmit(data: SettingsInput) {
     console.log(data);
     toast.success("설정이 저장되었습니다!");
+  }
+
+  function handlePasswordChange() {
+    const current = currentPasswordRef.current?.value ?? "";
+    const next = newPasswordRef.current?.value ?? "";
+    const confirm = confirmPasswordRef.current?.value ?? "";
+
+    if (!current || !next || !confirm) {
+      toast.error("모든 비밀번호 필드를 입력해주세요.");
+      return;
+    }
+    if (next.length < 8) {
+      toast.error("새 비밀번호는 8자 이상이어야 합니다.");
+      return;
+    }
+    if (next !== confirm) {
+      toast.error("새 비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    toast.success("비밀번호가 변경되었습니다!");
   }
 
   return (
@@ -89,7 +114,7 @@ export default function SettingsPage() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>언어</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="언어 선택" />
@@ -111,7 +136,7 @@ export default function SettingsPage() {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>시간대</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
                             <SelectTrigger>
                               <SelectValue placeholder="시간대 선택" />
@@ -198,20 +223,20 @@ export default function SettingsPage() {
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="current-password">현재 비밀번호</Label>
-                    <Input id="current-password" type="password" placeholder="••••••••" />
+                    <Input id="current-password" type="password" placeholder="••••••••" ref={currentPasswordRef} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="new-password">새 비밀번호</Label>
-                    <Input id="new-password" type="password" placeholder="••••••••" />
+                    <Input id="new-password" type="password" placeholder="••••••••" ref={newPasswordRef} />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="confirm-password">새 비밀번호 확인</Label>
-                    <Input id="confirm-password" type="password" placeholder="••••••••" />
+                    <Input id="confirm-password" type="password" placeholder="••••••••" ref={confirmPasswordRef} />
                   </div>
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => toast.success("비밀번호가 변경되었습니다!")}
+                    onClick={handlePasswordChange}
                   >
                     비밀번호 변경
                   </Button>

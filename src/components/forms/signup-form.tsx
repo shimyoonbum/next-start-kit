@@ -22,7 +22,6 @@ export function SignupForm() {
   });
 
   function onSubmit(data: SignupInput) {
-    console.log(data);
     toast.success("회원가입 성공!", { description: "계정이 생성되었습니다." });
     form.reset();
   }

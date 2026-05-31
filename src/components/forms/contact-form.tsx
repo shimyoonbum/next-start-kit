@@ -23,7 +23,6 @@ export function ContactForm() {
   });
 
   function onSubmit(data: ContactInput) {
-    console.log(data);
     toast.success("문의가 접수되었습니다!", { description: "빠른 시일 내에 답변드리겠습니다." });
     form.reset();
   }

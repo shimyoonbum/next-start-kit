@@ -107,7 +107,7 @@ export default function DashboardPage() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={statusVariant[activity.status]}>
+                      <Badge variant={statusVariant[activity.status] ?? "outline"}>
                         {activity.status}
                       </Badge>
                     </TableCell>
