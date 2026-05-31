@@ -15,6 +15,8 @@ import { Separator } from "@/components/ui/separator";
 const navLinks = [
   { href: "/", label: "홈" },
   { href: "/components", label: "컴포넌트" },
+  { href: "/forms", label: "폼" },
+  { href: "/dashboard", label: "대시보드" },
 ];
 
 export function Navbar() {
